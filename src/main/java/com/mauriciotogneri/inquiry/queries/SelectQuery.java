@@ -19,6 +19,11 @@ public class SelectQuery<T> extends Query
         this.clazz = clazz;
     }
 
+    public T single(Object... parameters) throws DatabaseException
+    {
+        return execute(parameters).get(0);
+    }
+
     public QueryResult<T> execute(Object... parameters) throws DatabaseException
     {
         try (PreparedStatement statement = preparedStatement(parameters);

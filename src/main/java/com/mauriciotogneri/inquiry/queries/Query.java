@@ -4,6 +4,7 @@ import com.mauriciotogneri.inquiry.DatabaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Query
@@ -22,6 +23,30 @@ public class Query
     public Query(Connection connection, String query)
     {
         this(connection, query, null);
+    }
+
+    public int update(Object... parameters) throws DatabaseException
+    {
+        try (PreparedStatement statement = preparedStatement(parameters))
+        {
+            return statement.executeUpdate();
+        }
+        catch (Exception e)
+        {
+            throw new DatabaseException(e);
+        }
+    }
+
+    public ResultSet result(Object... parameters) throws DatabaseException
+    {
+        try (PreparedStatement statement = preparedStatement(parameters))
+        {
+            return statement.executeQuery();
+        }
+        catch (Exception e)
+        {
+            throw new DatabaseException(e);
+        }
     }
 
     private PreparedStatement preparedStatement() throws DatabaseException, SQLException
