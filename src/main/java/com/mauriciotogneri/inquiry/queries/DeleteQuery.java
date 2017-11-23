@@ -1,11 +1,13 @@
-package com.mauriciotogneri.inquiry;
+package com.mauriciotogneri.inquiry.queries;
+
+import com.mauriciotogneri.inquiry.DatabaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class UpdateQuery extends Query
+public class DeleteQuery extends Query
 {
-    public UpdateQuery(Connection connection, String query)
+    public DeleteQuery(Connection connection, String query)
     {
         super(connection, query);
     }

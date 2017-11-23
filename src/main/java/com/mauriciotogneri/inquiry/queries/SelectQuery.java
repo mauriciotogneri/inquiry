@@ -1,4 +1,8 @@
-package com.mauriciotogneri.inquiry;
+package com.mauriciotogneri.inquiry.queries;
+
+import com.mauriciotogneri.inquiry.DatabaseException;
+import com.mauriciotogneri.inquiry.QueryResult;
+import com.mauriciotogneri.inquiry.TypedResultSet;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
