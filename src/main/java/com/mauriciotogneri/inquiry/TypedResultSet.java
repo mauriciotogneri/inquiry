@@ -66,30 +66,35 @@ public class TypedResultSet<T>
             {
                 int index = i + 1;
                 Field field = fields[i];
+                Class<?> fieldType = field.getType();
 
-                if (field.getType().equals(String.class))
+                if (fieldType.equals(String.class))
                 {
                     field.set(object, rows.getString(index));
                 }
-                else if (field.getType().equals(Boolean.class))
+                else if (fieldType.equals(Boolean.class))
                 {
                     field.set(object, rows.getBoolean(index));
                 }
-                else if (field.getType().equals(Integer.class))
+                else if (fieldType.equals(Integer.class))
                 {
                     field.set(object, rows.getInt(index));
                 }
-                else if (field.getType().equals(Long.class))
+                else if (fieldType.equals(Long.class))
                 {
                     field.set(object, rows.getLong(index));
                 }
-                else if (field.getType().equals(Float.class))
+                else if (fieldType.equals(Float.class))
                 {
                     field.set(object, rows.getFloat(index));
                 }
-                else if (field.getType().equals(Double.class))
+                else if (fieldType.equals(Double.class))
                 {
                     field.set(object, rows.getDouble(index));
+                }
+                else if (fieldType.isEnum())
+                {
+                    field.set(object, enumValue(fieldType, rows.getString(index)));
                 }
             }
 
@@ -99,5 +104,20 @@ public class TypedResultSet<T>
         {
             throw new DatabaseException(e);
         }
+    }
+
+    private Object enumValue(Class<?> clazz, String text)
+    {
+        String input = text.toUpperCase();
+
+        for (Object value : clazz.getEnumConstants())
+        {
+            if (value.toString().equals(input))
+            {
+                return value;
+            }
+        }
+
+        return null;
     }
 }

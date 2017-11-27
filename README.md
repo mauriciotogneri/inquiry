@@ -23,7 +23,7 @@ and the dependency:
 <dependency>
     <groupId>com.mauriciotogneri</groupId>
     <artifactId>inquiry</artifactId>
-    <version>0.0.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -32,6 +32,6 @@ or if you use Gradle:
 ```groovy
 dependencies
 {
-    compile 'com.mauriciotogneri:inquiry:0.0.2'
+    compile 'com.mauriciotogneri:inquiry:1.0.0'
 }
 ```
