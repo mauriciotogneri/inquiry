@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class Query
 {
@@ -95,6 +96,14 @@ public class Query
                 else if (parameter.getClass().equals(Double.class))
                 {
                     statement.setDouble(index, (Double) parameter);
+                }
+                else if (parameter.getClass().equals(Timestamp.class))
+                {
+                    statement.setTimestamp(index, (Timestamp) parameter);
+                }
+                else if (parameter.getClass().isEnum())
+                {
+                    statement.setString(index, parameter.toString());
                 }
             }
 

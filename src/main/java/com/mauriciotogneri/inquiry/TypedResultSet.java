@@ -2,6 +2,7 @@ package com.mauriciotogneri.inquiry;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 public class TypedResultSet<T>
 {
@@ -91,6 +92,10 @@ public class TypedResultSet<T>
                 else if (fieldType.equals(Double.class))
                 {
                     field.set(object, rows.getDouble(index));
+                }
+                else if (fieldType.equals(Timestamp.class))
+                {
+                    field.set(object, rows.getTimestamp(index));
                 }
                 else if (fieldType.isEnum())
                 {
