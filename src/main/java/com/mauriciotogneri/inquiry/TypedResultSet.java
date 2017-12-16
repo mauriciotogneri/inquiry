@@ -1,5 +1,6 @@
 package com.mauriciotogneri.inquiry;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -100,6 +101,33 @@ public class TypedResultSet<T>
                 else if (fieldType.isEnum())
                 {
                     field.set(object, enumValue(fieldType, rows.getString(index)));
+                }
+                else if (fieldType.isArray())
+                {
+                    Object[] array = (Object[]) rows.getArray(index).getArray();
+                    Class<?> arrayType = fieldType.getComponentType();
+
+                    if (arrayType.equals(String.class) ||
+                            arrayType.equals(Boolean.class) ||
+                            arrayType.equals(Integer.class) ||
+                            arrayType.equals(Long.class) ||
+                            arrayType.equals(Float.class) ||
+                            arrayType.equals(Double.class) ||
+                            arrayType.equals(Timestamp.class))
+                    {
+                        field.set(object, array);
+                    }
+                    else if (arrayType.isEnum())
+                    {
+                        Object[] enumArray = (Object[]) Array.newInstance(arrayType, array.length);
+
+                        for (int j = 0; j < array.length; j++)
+                        {
+                            enumArray[j] = enumValue(arrayType, array[j].toString());
+                        }
+
+                        field.set(object, enumArray);
+                    }
                 }
             }
 
