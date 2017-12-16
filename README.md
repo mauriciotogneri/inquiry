@@ -11,7 +11,7 @@ Given that we have a JDBC connection:
 Connection connection = // obtain connection
 ```
 
-#### Select
+### Select
 ```java
 SelectQuery<Person> query = new SelectQuery<>(connection, "SELECT * FROM person WHERE (age > ?)", Person.class);
 QueryResult<Person> result = query.execute(18);
@@ -26,19 +26,19 @@ else
 }
 ```
 
-#### Insert
+### Insert
 ```java
 InsertQuery query = new InsertQuery(connection, "INSERT INTO person (first_name, last_name, age) VALUES (?, ?, ?)");
 long id = query.execute("John", "Doe", 45);
 ```
 
-#### Update
+### Update
 ```java
 UpdateQuery query = new UpdateQuery(connection, "UPDATE person SET (age = ?) WHERE (id = ?)");
 int rowsAffected = query.execute(46, 1); // age and id
 ```
 
-#### Delete
+### Delete
 ```java
 DeleteQuery query = new DeleteQuery(connection, "DELETE FROM person WHERE (id = ?)");
 int rowsAffected = deleteQuery.execute(playerId);
