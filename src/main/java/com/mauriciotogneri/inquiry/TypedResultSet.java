@@ -104,8 +104,19 @@ public class TypedResultSet<T>
                 }
                 else if (fieldType.isArray())
                 {
-                    Object[] array = (Object[]) rows.getArray(index).getArray();
                     Class<?> arrayType = fieldType.getComponentType();
+                    java.sql.Array columnArray = rows.getArray(index);
+
+                    Object[] array;
+
+                    if (columnArray == null)
+                    {
+                        array = (Object[]) Array.newInstance(arrayType, 0);
+                    }
+                    else
+                    {
+                        array = (Object[]) columnArray.getArray();
+                    }
 
                     if (arrayType.equals(String.class) ||
                             arrayType.equals(Boolean.class) ||
